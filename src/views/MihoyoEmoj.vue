@@ -1,5 +1,18 @@
 <template>
-  <section>
+  <el-skeleton :loading="loading" :rows="3" :count="3" animated>
+  <template #template>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-5  xl:grid-cols-5 text-center">
+      <div v-for="item in 5">
+        <el-skeleton-item  variant="image" style="height: 20rem"/>
+        <el-skeleton-item variant="text" style="margin-right: 16px" />
+        <el-skeleton-item variant="text" style="margin-right: 16px;height: 4rem; "/></div>
+    </div>
+
+
+  </template>
+
+  <template  #default >
     <el-tabs v-model="curEmojSet" type="card">
       <template v-for="(item, index) in tabs">
         <el-tab-pane class="ddd" :name="index" :label="item.name"></el-tab-pane>
@@ -22,7 +35,7 @@
       @ps-click="psDownload"
     ></floating-btn>
     <el-backtop :right="100" :bottom="40" />
-  </section>
+  </template></el-skeleton>
 </template>
 
 <script setup lang="ts">
@@ -33,7 +46,7 @@ import { basename } from "@/utils/util";
 let curEmojSet = $ref(0);
 let tabs = $ref([]);
 let emojs = $ref([]);
-
+let loading=$ref(true)
 async function openLink(item) {
   window.open(item.icon, "_blank");
 }
@@ -57,9 +70,11 @@ function downloadAll() {
   }
 }
 async function getEmoj() {
+  loading=true
   let { data } = await axios.get(
     "https://bbs-api-static.mihoyo.com/misc/api/emoticon_set?gids=2"
   );
+  loading=false
   emojs = data.data.list.slice(1);
   emojs.pop();
   tabs = emojs.map((item) => {
@@ -68,9 +83,10 @@ async function getEmoj() {
     };
   });
   console.log(emojs);
+
 }
-onBeforeMount(() => {
-  getEmoj();
+onBeforeMount(async () => {
+  await getEmoj();
 });
 </script>
 

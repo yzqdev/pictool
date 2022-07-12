@@ -7,7 +7,7 @@
       :default-active="$route.path"
       mode="horizontal"
     >
-      <el-menu-item index="logo" @click="gotoRoute('Home')">
+      <el-menu-item index="logo" @click="gotoRoute({ name: 'Home' })">
         pictool
       </el-menu-item>
       <div class="flex-grow" />
@@ -122,7 +122,7 @@ function gotoLink() {
 let menus = $ref(defaultMenu);
 
 function gotoRoute(item) {
-  router.push({ name: item });
+  router.push({ name: item.name });
 }
 </script>
 

@@ -1,5 +1,17 @@
 <template>
-  <div v-loading="loading" element-loading-text="Loading...">
+  <el-skeleton :loading="loading" :count="3" animated>
+  <template #template>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-3 text-center">
+      <div v-for="item in 3">
+        <el-skeleton-item  variant="image" style="height: 20rem"/>
+        <el-skeleton-item variant="text" style="margin-right: 16px" />
+        <el-skeleton-item variant="text" style="margin-right: 16px;height: 4rem; "/></div>
+    </div>
+
+
+  </template>
+  <template #default  >
     <section
       v-infinite-scroll="getData"
       :infinite-scroll-immediate="true"
@@ -22,7 +34,7 @@
       @ps-click="psDownload"
     ></floating-btn>
     <el-backtop :right="100" :bottom="40" />
-  </div>
+  </template></el-skeleton>
 </template>
 
 <script setup lang="ts">
@@ -33,7 +45,7 @@ import "element-plus/theme-chalk/el-message.css";
 
 let pixList = $ref([]);
 let page = $ref(1);
-let loading = $ref(false);
+let loading = $ref(true);
 import download from "downloadjs";
 import { basename } from "@/utils/util";
 function gotoLink(item) {
@@ -79,7 +91,7 @@ async function getData() {
   pixList.push(...data.data.rows);
   loading = false;
 }
-onBeforeMount(() => {});
+onBeforeMount(() => {getData()});
 </script>
 
 <style lang="scss" scoped>
