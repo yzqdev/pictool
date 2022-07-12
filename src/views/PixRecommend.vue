@@ -1,43 +1,50 @@
 <template>
-   <el-skeleton :loading="loading" :rows="3" :count="3" animated>
-     <template #template>
-
-       <div class="grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-3 text-center">
-         <div v-for="item in 3">
-           <el-skeleton-item  variant="image" style="height: 20rem"/>
-           <el-skeleton-item variant="text" style="margin-right: 16px" />
-           <el-skeleton-item variant="text" style="margin-right: 16px;height: 4rem; "/></div>
-       </div>
-
-
-     </template>
-  <template  #default >
-    <section
-      v-infinite-scroll="getData"
-      :infinite-scroll-immediate="true"
-      :infinite-scroll-distance="600"
-      class="infinity"
-    >
-      <div  class="bing-imgs grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-3 text-center" v-viewer>
-        <div class="img" v-for="item in pixList">
-          <el-image :src="item.original_url" />
-          <article class="img-btns">
-            <el-button @click="gotoLink(item)">打开链接</el-button>
-            <el-button @click="copyImg(item)">复制</el-button>
-
-            <el-button type="primary" @click="downloadImg(item)">
-              下载
-            </el-button>
-          </article>
+  <el-skeleton :loading="loading" :rows="3" :count="3" animated>
+    <template #template>
+      <div
+        class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 text-center"
+      >
+        <div v-for="item in 3">
+          <el-skeleton-item variant="image" style="height: 20rem" />
+          <el-skeleton-item variant="text" style="margin-right: 16px" />
+          <el-skeleton-item
+            variant="text"
+            style="margin-right: 16px; height: 4rem"
+          />
         </div>
       </div>
-      <floating-btn
-        @all-click="downloadAll"
-        @ps-click="psDownload"
-      ></floating-btn>
-      <el-backtop :right="100" :bottom="40" />
-    </section>
-  </template></el-skeleton>
+    </template>
+    <template #default>
+      <section
+        v-infinite-scroll="getData"
+        :infinite-scroll-immediate="true"
+        :infinite-scroll-distance="600"
+        class="infinity"
+      >
+        <div
+          class="bing-imgs grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 text-center"
+          v-viewer
+        >
+          <div class="img" v-for="item in pixList">
+            <el-image :src="item.original_url" />
+            <article class="img-btns">
+              <el-button @click="gotoLink(item)">打开链接</el-button>
+              <el-button @click="copyImg(item)">复制</el-button>
+
+              <el-button type="primary" @click="downloadImg(item)">
+                下载
+              </el-button>
+            </article>
+          </div>
+        </div>
+        <floating-btn
+          @all-click="downloadAll"
+          @ps-click="psDownload"
+        ></floating-btn>
+        <el-backtop :right="100" :bottom="40" />
+      </section>
+    </template>
+  </el-skeleton>
 </template>
 
 <script setup lang="ts">
@@ -48,7 +55,7 @@ import { ElMessage } from "element-plus";
 import "element-plus/theme-chalk/el-message.css";
 import { basename } from "@/utils/util";
 let pixList = $ref([]);
-let loading = $ref(false);
+let loading = $ref(true);
 
 function gotoLink(item) {
   window.open(`https://www.vilipix.com/illust/${item.picture_id}`, "_blank");
@@ -82,17 +89,17 @@ function downloadImg(item) {
   download(item.original_url);
 }
 
-async function getData(index: number, done: Function) {
+async function getData() {
   console.log("获取数据");
   //这里offset相当于pageNumber*limit
   offsetIndex++;
   loading = true;
   let dailyUrl = `https://www.vilipix.com/api/v1/picture/ranking?limit=16&offset=${
-    index * 16
+    offsetIndex * 16
   }&type=0&mode=daily`;
   //原创插图
   let publicUrl = `https://www.vilipix.com/api/v1/picture/public?limit=18&offset=${
-    index * 18
+    offsetIndex * 18
   }&sort=hot&type=0`;
   let { data } = await axios.get(publicUrl);
   //
@@ -100,13 +107,13 @@ async function getData(index: number, done: Function) {
   loading = false;
 }
 
-onBeforeMount(() => {});
+onBeforeMount(() => {
+  getData();
+});
 </script>
 
 <style lang="scss" scoped>
 .bing-imgs {
-
-
   .img {
     width: 100%;
 

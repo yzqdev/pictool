@@ -3,6 +3,8 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
+export {}
+
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
@@ -22,11 +24,11 @@ declare module '@vue/runtime-core' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FloatingBtn: typeof import('./../components/FloatingBtn.vue')['default']
     Imgs: typeof import('./../components/Imgs.vue')['default']
-    InfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']
-    Loading: typeof import('element-plus/es')['ElLoadingDirective']
+    InfiniteScroll: typeof import("element-plus/es")["ElInfiniteScroll"]
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
+  export interface ComponentCustomProperties {
+    vInfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']
+  }
 }
-
-export {}

@@ -1,7 +1,7 @@
 <template>
   <el-main>
     <md-editor v-model="mdContent" preview-only></md-editor>
-  </el-main>
+  </el-main> <el-backtop :right="100" :bottom="40" />
 </template>
 <script setup lang="ts">
 import MdEditor from "md-editor-v3";

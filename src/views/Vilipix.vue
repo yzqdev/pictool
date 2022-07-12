@@ -1,40 +1,44 @@
 <template>
   <el-skeleton :loading="loading" :count="3" animated>
-  <template #template>
-
-    <div class="grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-3 text-center">
-      <div v-for="item in 3">
-        <el-skeleton-item  variant="image" style="height: 20rem"/>
-        <el-skeleton-item variant="text" style="margin-right: 16px" />
-        <el-skeleton-item variant="text" style="margin-right: 16px;height: 4rem; "/></div>
-    </div>
-
-
-  </template>
-  <template #default  >
-    <section
-      v-infinite-scroll="getData"
-      :infinite-scroll-immediate="true"
-      :infinite-scroll-distance="600"
-      class="infinity"
-    >
-      <div class="bing-imgs" v-viewer>
-        <div class="img" v-for="item in pixList">
-          <el-image loading="lazy" fit="fill" :src="item.original_url" />
-          <article class="img-btns">
-            <el-button @click="gotoLink(item)">打开链接</el-button>
-            <el-button @click="copyImg(item)">复制</el-button>
-            <el-button @click="downloadImg(item)">下载</el-button>
-          </article>
+    <template #template>
+      <div
+        class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 text-center"
+      >
+        <div v-for="item in 3">
+          <el-skeleton-item variant="image" style="height: 20rem" />
+          <el-skeleton-item variant="text" style="margin-right: 16px" />
+          <el-skeleton-item
+            variant="text"
+            style="margin-right: 16px; height: 4rem"
+          />
         </div>
       </div>
-    </section>
-    <floating-btn
-      @all-click="downloadAll"
-      @ps-click="psDownload"
-    ></floating-btn>
-    <el-backtop :right="100" :bottom="40" />
-  </template></el-skeleton>
+    </template>
+    <template #default>
+      <section
+        v-infinite-scroll="getData"
+        :infinite-scroll-immediate="true"
+        :infinite-scroll-distance="600"
+        class="infinity"
+      >
+        <div class="bing-imgs" v-viewer>
+          <div class="img" v-for="item in pixList">
+            <el-image loading="lazy" fit="fill" :src="item.original_url" />
+            <article class="img-btns">
+              <el-button @click="gotoLink(item)">打开链接</el-button>
+              <el-button @click="copyImg(item)">复制</el-button>
+              <el-button @click="downloadImg(item)">下载</el-button>
+            </article>
+          </div>
+        </div>
+      </section>
+      <floating-btn
+        @all-click="downloadAll"
+        @ps-click="psDownload"
+      ></floating-btn>
+      <el-backtop :right="100" :bottom="40" />
+    </template>
+  </el-skeleton>
 </template>
 
 <script setup lang="ts">
@@ -91,7 +95,9 @@ async function getData() {
   pixList.push(...data.data.rows);
   loading = false;
 }
-onBeforeMount(() => {getData()});
+onBeforeMount(() => {
+  getData();
+});
 </script>
 
 <style lang="scss" scoped>

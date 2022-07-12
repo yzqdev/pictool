@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-  </el-main>
+  </el-main> <el-backtop :right="100" :bottom="40" />
 </template>
 
 <script setup lang="ts">
