@@ -94,16 +94,14 @@ onBeforeMount(async () => {
     `%c${loading}`,
     `color:red;font-size:16px;background:transparent`
   );
-  if (isDev) {
-    await getData();
-  } else {
+
     imgs = [...imgList, ...quanAvatars()];
     imgStore = imgs;
     ElMessage({
       type: "success",
       message: imgs.length + "张图片",
     });
-  }
+
   loading = false;
 });
 onMounted(() => {

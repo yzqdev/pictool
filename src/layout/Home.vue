@@ -110,6 +110,14 @@ let defaultMenu = [
         index: "/pix-recommend",
         name: "PixRecommend",
         title: "推荐",
+      }, {
+        index: "/cos",
+        name: "Cos",
+        title: "cos",
+      }, {
+        index: "/tong",
+        name: "Tongren",
+        title: "同人",
       },
     ],
   },

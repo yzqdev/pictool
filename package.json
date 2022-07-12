@@ -9,13 +9,14 @@
     "dev": "vite --host",
     "start": "concurrently \"yarn server\" \"yarn dev \"",
     "build": "vite build",
-    "server": "esno backend/index.ts",
+    "server": "esno api/index.ts",
     "build:ts": "vue-tsc --noEmit && vite build",
     "preview": "vite build&&vite preview",
     "lint": "prettier --write src/**/*.{vue,js,jsx,ts,tsx,json,html} backend/**/*.ts"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
+    "@vercel/node": "^2.4.2",
     "@vicons/ionicons5": "^0.12.0",
     "@vueuse/core": "8.9.2",
     "@vueuse/head": "^0.7.6",

@@ -49,7 +49,7 @@ function copyCodes() {
 }
 
 async function getData() {
-  let { data } = await axios.get("http://localhost:8751/bili");
+  let { data } = await axios.get("https://pictool-server.vercel.app/photo/bili");
   imgs.push(...data.imgList.genshin);
   imgs.push(...data.imgList.benghuai);
   imgs.push(...data.imgList.fangzhou);
