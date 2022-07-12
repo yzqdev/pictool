@@ -1,0 +1,9 @@
+{
+  "htmlWhitespaceSensitivity": "ignore",
+  "useTabs": false,
+  "endOfLine": "auto",
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "insertPragma": false,
+  "printWidth": 80
+}
