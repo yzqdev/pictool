@@ -22,12 +22,12 @@
         class="infinity"
       >
         <div
-          class="bing-imgs grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 text-center"
+          class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 text-center"
           v-viewer
         >
-          <div class="img" v-for="item in pixList">
+          <div class="w-full m-4" v-for="item in pixList">
             <el-image :src="item.original_url" />
-            <article class="img-btns">
+            <article class="flex justify-evenly">
               <el-button @click="gotoLink(item)">打开链接</el-button>
               <el-button @click="copyImg(item)">复制</el-button>
 
@@ -112,21 +112,4 @@ onBeforeMount(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-.bing-imgs {
-  .img {
-    width: 100%;
-
-    margin: 1em;
-
-    .img-btns {
-      display: flex;
-      justify-content: space-evenly;
-    }
-
-    img {
-      width: 100%;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>

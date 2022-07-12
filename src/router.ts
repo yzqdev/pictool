@@ -1,13 +1,13 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
-import Home from "@/layout/Home.vue"
-import HomeMain from "@/views/HomeMain.vue"
-import DownloadAll from "@/views/DownloadIntro.vue"
-import Vilipix from "@/views/Vilipix.vue"
-import Emoj from "@/views/MihoyoEmoj.vue"
-import PixRecommend from "@/views/PixRecommend.vue"
-import Cos from '@/views/Cos.vue';
-import Tongren from '@/views/Tongren.vue'
+import Home from "@/layout/Home.vue";
+import HomeMain from "@/views/HomeMain.vue";
+import DownloadAll from "@/views/DownloadIntro.vue";
+import Vilipix from "@/views/Vilipix.vue";
+import Emoj from "@/views/MihoyoEmoj.vue";
+import PixRecommend from "@/views/PixRecommend.vue";
+import Cos from "@/views/Cos.vue";
+import Tongren from "@/views/Tongren.vue";
 import About from "@/views/About.vue";
 
 let routes: RouteRecordRaw[] = [
@@ -48,11 +48,13 @@ let routes: RouteRecordRaw[] = [
         path: "pix-recommend",
         name: "PixRecommend",
         component: PixRecommend,
-      },  {
+      },
+      {
         path: "cos",
         name: "Cos",
         component: Cos,
-      },{
+      },
+      {
         path: "tongren",
         name: "Tongren",
         component: Tongren,

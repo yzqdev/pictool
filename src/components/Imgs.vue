@@ -95,12 +95,12 @@ onBeforeMount(async () => {
     `color:red;font-size:16px;background:transparent`
   );
 
-    imgs = [...imgList, ...quanAvatars()];
-    imgStore = imgs;
-    ElMessage({
-      type: "success",
-      message: imgs.length + "张图片",
-    });
+  imgs = [...imgList, ...quanAvatars()];
+  imgStore = imgs;
+  ElMessage({
+    type: "success",
+    message: imgs.length + "张图片",
+  });
 
   loading = false;
 });

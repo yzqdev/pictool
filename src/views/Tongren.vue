@@ -2,29 +2,32 @@
   <el-skeleton :loading="loading" :count="3" animated>
     <template #template>
       <div
-          class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 text-center"
+        class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 text-center"
       >
         <div v-for="item in 3">
           <el-skeleton-item variant="image" style="height: 20rem" />
           <el-skeleton-item variant="text" style="margin-right: 16px" />
           <el-skeleton-item
-              variant="text"
-              style="margin-right: 16px; height: 4rem"
+            variant="text"
+            style="margin-right: 16px; height: 4rem"
           />
         </div>
       </div>
     </template>
     <template #default>
       <section
-          v-infinite-scroll="getData"
-          :infinite-scroll-immediate="true"
-          :infinite-scroll-distance="600"
-          class="infinity"
+        v-infinite-scroll="getData"
+        :infinite-scroll-immediate="true"
+        :infinite-scroll-distance="600"
+        class="infinity"
       >
-        <div class="bing-imgs" v-viewer>
-          <div class="img" v-for="item in pixList">
+        <div
+          class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 cursor-pointer gap-x-2"
+          v-viewer
+        >
+          <div class="w-full m-4" v-for="item in pixList">
             <el-image loading="lazy" fit="fill" :src="item.post.cover" />
-            <article class="img-btns">
+            <article class="flex justify-center">
               <el-button @click="gotoLink(item)">打开链接</el-button>
               <el-button @click="copyImg(item)">复制</el-button>
               <el-button @click="downloadImg(item)">下载</el-button>
@@ -33,8 +36,8 @@
         </div>
       </section>
       <floating-btn
-          @all-click="downloadAll"
-          @ps-click="psDownload"
+        @all-click="downloadAll"
+        @ps-click="psDownload"
       ></floating-btn>
       <el-backtop :right="100" :bottom="40" />
     </template>
@@ -52,9 +55,12 @@ let page = $ref(1);
 let loading = $ref(true);
 import download from "downloadjs";
 import { basename } from "@/utils/util";
-import {getTongrenApi} from "@/utils/api";
+import { getTongrenApi } from "@/utils/api";
 function gotoLink(item) {
-  window.open('https://bbs.mihoyo.com/ys/article/'+item.post.post_id, "_blank");
+  window.open(
+    "https://bbs.mihoyo.com/ys/article/" + item.post.post_id,
+    "_blank"
+  );
 }
 let offsetIndex = $ref(0);
 async function copyImg(item) {
@@ -66,9 +72,7 @@ function downloadImg(item) {
 function psDownload() {
   let str = [];
   for (let item of pixList) {
-    str.push(
-        `iwr ${item.post.cover} -OutFile ${basename(item.post.cover)}`
-    );
+    str.push(`iwr ${item.post.cover} -OutFile ${basename(item.post.cover)}`);
   }
   let link = document.createElement("a");
   link.download = "run.ps1";
@@ -81,28 +85,28 @@ function downloadAll() {
     download(item.post.cover);
   }
 }
-let id=$ref('0')
-let isLast=$ref(false)
+let id = $ref("0");
+let isLast = $ref(false);
 async function getData() {
   console.log("获取数据");
   offsetIndex++;
-if (isLast) {
-  ElMessage({
-    type:'success',
-    message:'已经是最后一条了!'
-  })
-  return
-}
+  if (isLast) {
+    ElMessage({
+      type: "success",
+      message: "已经是最后一条了!",
+    });
+    return;
+  }
   //这里offset相当于pageNumber*limit
 
   //原创插图
   loading = true;
   // let publicUrl=`https://www.vilipix.com/api/v1/picture/public?limit=18&offset=${index*18}&sort=hot&type=0`
-  let  data  = await getTongrenApi(id)
-console.log(data)
-  id=data.data.last_id
-  isLast=data.data.is_last
-  pixList.push(...data.data.list );
+  let data = await getTongrenApi(id);
+  console.log(data);
+  id = data.data.last_id;
+  isLast = data.data.is_last;
+  pixList.push(...data.data.list);
   loading = false;
 }
 onBeforeMount(() => {
@@ -110,22 +114,4 @@ onBeforeMount(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-.bing-imgs {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  cursor: pointer;
-  grid-gap: 0 0.5rem;
-  .img {
-    width: 100%;
-    margin: 1em;
-    .img-btns {
-      display: flex;
-      justify-content: space-evenly;
-    }
-    img {
-      width: 100%;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>

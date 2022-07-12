@@ -21,10 +21,13 @@
         :infinite-scroll-distance="600"
         class="infinity"
       >
-        <div class="bing-imgs" v-viewer>
-          <div class="img" v-for="item in pixList">
+        <div
+          class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 cursor-pointer gap-x-2"
+          v-viewer
+        >
+          <div class="w-full m-4" v-for="item in pixList">
             <el-image loading="lazy" fit="fill" :src="item.original_url" />
-            <article class="img-btns">
+            <article class="flex justify-center">
               <el-button @click="gotoLink(item)">打开链接</el-button>
               <el-button @click="copyImg(item)">复制</el-button>
               <el-button @click="downloadImg(item)">下载</el-button>
@@ -100,22 +103,4 @@ onBeforeMount(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-.bing-imgs {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  cursor: pointer;
-  grid-gap: 0 0.5rem;
-  .img {
-    width: 100%;
-    margin: 1em;
-    .img-btns {
-      display: flex;
-      justify-content: space-evenly;
-    }
-    img {
-      width: 100%;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
